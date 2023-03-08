@@ -21,7 +21,7 @@
         </div>
         <!-- [ breadcrumb ] end -->
         <!-- [ Main Content ] start -->
-        <div class="row">
+       {{--   <div class="row">
         <div class="col-xl-4 col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
         <!-- [ Main Content ] end -->
     </div>
 </div>

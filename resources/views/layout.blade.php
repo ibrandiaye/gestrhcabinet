@@ -74,7 +74,7 @@
 							<li><a href="{{ route('service.index') }}">Lister</a></li>
 						</ul>
 					</li>
-                    <li class="nav-item pcoded-hasmenu">
+                    {{--  <li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Demande de stage</span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="{{ route('candidat.create') }}">Ajouter</a></li>
@@ -101,12 +101,54 @@
 							<li><a href="{{ route('document.create') }}">Ajouter</a></li>
 							<li><a href="{{ route('document.index') }}">Lister</a></li>
 						</ul>
-					</li>
+					</li>  --}}
                     <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Service</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
 							<li><a href="{{ route('fonction.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Contrat</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('contrat.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('contrat.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('fonction.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Categorie</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('categorie.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('categorie.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Employeur</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('employeur.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('employeur.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Famille</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('famille.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('famille.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Employee</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('employe.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('employe.index') }}">Lister</a></li>
 						</ul>
 					</li>
 				</ul>
