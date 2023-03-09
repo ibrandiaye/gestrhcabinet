@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CandidatRepository;
 use App\Repositories\DocumentRepository;
+use App\Repositories\EmployeRepository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 
@@ -12,12 +13,14 @@ class DocumentController extends Controller
     protected $documentRepository;
     protected $candidatRepository;
     protected $serviceRepository;
+    protected $employeRepository;
 
     public function __construct(DocumentRepository $documentRepository, CandidatRepository $candidatRepository,
-    ServiceRepository $serviceRepository){
+    ServiceRepository $serviceRepository,EmployeRepository $employeRepository){
         $this->documentRepository =$documentRepository;
         $this->candidatRepository = $candidatRepository;
         $this->serviceRepository = $serviceRepository;
+        $this->employeRepository = $employeRepository;
     }
 
     /**
@@ -50,24 +53,29 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $request->validate([
             'nom'=> 'required|string',
             'docs'=> 'required|file|mimes:docx,pdf,doc,xls,xlsx',
-            'candidat_id'=> 'required|int'
+          //  'candidat_id'=> 'required|int'
 
         ],[
             'nom'=> 'Nom Obligatoire',
             'docs'=> 'Document obligatoire',
-            'candidat_id'=> 'Le candidat est obligatoire',
+          //  'candidat_id'=> 'Le candidat est obligatoire',
         ]);
         $document = time().'.'.$request->docs->extension();
         $request->docs->move('clceorccis/', $document);
         $request->merge(['fichier'=>$document]);
         $documents = $this->documentRepository->store($request->all());
+      //  dd($request->page);
         if($request['page']=='cdt'){
             $candidat = $this->candidatRepository->getCandidatWithRelation($request['candidat_id']);
             $services = $this->serviceRepository->getAll();
             return view('candidat.show',compact('candidat','services'));
+        }else if($request->employe_id){
+           // $employe = $this->employeRepository->getById($request['employe_id']);
+            return redirect()->route('employe.show', ['employe' =>$request['employe_id']]);
         }else{
             return redirect('document');
         }

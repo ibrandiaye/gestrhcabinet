@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('fichier');
-            $table->unsignedBigInteger('candidat_id');
+            $table->unsignedBigInteger('candidat_id')->nullable();
             $table->foreign('candidat_id')
             ->references('id')
             ->on('candidats');

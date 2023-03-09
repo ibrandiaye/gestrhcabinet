@@ -29,4 +29,7 @@ class Employe extends Model
     public function contrat(){
         return $this->belongsTo(Contrat::class);
     }
+    public function documents(){
+        return $this->hasMany(Document::class);
+    }
 }

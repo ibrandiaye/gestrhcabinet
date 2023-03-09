@@ -125,10 +125,11 @@
                                @foreach ($employes as $employe)
                                <tr>
                                 <td>{{ $employe->matricule }}</td>
+                                <td>{{ $employe->cni }}</td>
                                    <td>{{ $employe->prenom }}</td>
                                    <td>{{ $employe->nom }}</td>
                                    <td>{{ $employe->sexe }}</td>
-                                   <td>{{ $employe->cni }}</td>
+
                                    <td>{{ Carbon\Carbon::parse($employe->datenaiss)->format('d-m-Y')   }}</td>
                                    <td>{{ $employe->age }}</td>
                                    <td>{{ $employe->trancheage }}</td>
@@ -159,7 +160,7 @@
 
                                @endforeach
                             </tbody>
-                            <tfoot>
+                              <tfoot>
                                 <tr>
                                     <th>Matricle</th>
                                     <th>N° CNI</th>
@@ -213,6 +214,10 @@
     <script type="text/javascript">
 
         $(document).ready(function() {
+            $('#simpletable1 tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
             $('#simpletable1').DataTable( {
                 dom: 'Bfrtip',
                 buttons: [
@@ -227,7 +232,21 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            "autoWidth": false
+            "autoWidth": false,
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
             } );
         });
         $(document).ready(function() {

@@ -149,7 +149,18 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-       // $employe = $this->employeRepository->getEmployeWithRelation($id);
+       $employe = $this->employeRepository->getById($id);
+       $date1=date_create(date('Y-m-d'));
+       $date2 =date_create($employe->datefonction);
+       $dif=date_diff($date1,$date2);
+       $diff = $dif->format('%a')/365;
+       $employe->anciennete = floor($diff);
+       $datenaiss = date_create($employe->datenaiss);
+       $age  = date_diff($date1,$datenaiss);
+       $employe->age = floor($age->format('%a')/365);
+       $employe->trancheage=$this->trancheAge($employe);
+      $employe->dateretraite = $this->ajouterAnnees($employe->datenaiss,$employe->retraite);
+    $employe->trancheanciennete = $this->trancheAnxiente($employe);
         $services = $this->serviceRepository->getAll();
         return view('employe.show',compact('employe','services'));
     }
@@ -194,7 +205,7 @@ class EmployeController extends Controller
      */
     public function destroy($id)
     {
-        $employe = $this->employeRepository->getById($id);
+      /*   $employe = $this->employeRepository->getById($id);
         $service = $employe->service;
        // $employe->service()->detach($service);
         foreach ($employe->contrats as $contrat) {
@@ -202,7 +213,7 @@ class EmployeController extends Controller
         }
         // $employe->contrats()->prolongations()->delete();
         $employe->contrats()->delete();
-        $employe->documents()->delete();
+        $employe->documents()->delete(); */
         $this->employeRepository->destroy($id);
         return redirect('employe');
     }

@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-
+//Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'EmployeController@index')->name('home');
 Route::resource('service', ServiceController::class);
 Route::resource('candidat', CandidatController::class);
 Route::resource('autorisation', AutorisationController::class);
