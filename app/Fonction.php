@@ -9,4 +9,7 @@ class Fonction extends Model
     protected $fillable = [
         'nom'
    ];
+   public function occupes(){
+    return $this->hasMany(Occupe::class);
+}
 }

@@ -25,7 +25,6 @@ class CreateTableEmploye extends Migration
             $table->string('adresse');
             $table->string('matricule');
             $table->string('cni');
-            $table->date('datefonction');
             $table->string('religion');
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')
@@ -43,10 +42,10 @@ class CreateTableEmploye extends Migration
             $table->foreign('categorie_id')
             ->references('id')
             ->on('categories');
-            $table->unsignedBigInteger('fonction_id');
+           /*  $table->unsignedBigInteger('fonction_id');
             $table->foreign('fonction_id')
             ->references('id')
-            ->on('fonctions');
+            ->on('fonctions'); */
             $table->unsignedBigInteger('employeur_id');
             $table->foreign('employeur_id')
             ->references('id')

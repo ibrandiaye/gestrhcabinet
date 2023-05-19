@@ -174,6 +174,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="form-label">Hierarchie</label>
+                                        <select class="form-control" name="hierarchie_id" required>
+                                           <option value="">Veuillez choisir</option>
+                                           @foreach ($hierarchies as $hierarchie)
+                                           <option value="{{ $hierarchie->id }}" {{ $employe->hierarchie_id== $hierarchie->id ? 'selected' : ''}}>{{ $hierarchie->nom }}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                               {{--   <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="form-label">Fonction</label>
                                         <select class="form-control" name="fonction_id" required>
                                            <option value="">Veuillez choisir</option>
@@ -188,7 +199,7 @@
                                         <label class="form-label">DATE DE NOMINATION A LA FONCTION</label>
                                         <input type="date" class="form-control" name="datenomination" value="{{ $employe->datenomination }}" placeholder="Date de prise fonction" required>
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Employeur</label>
@@ -221,6 +232,18 @@
                                          </select>
                                     </div>
                                 </div>
+                               {{--   <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Responsabilité</label>
+                                        <input type="text" class="form-control" name="responsabilite" value="{{ $employe->responsabilite }}" placeholder="titre responsabilite">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Date de nomination à la responsabilité</label>
+                                        <input type="date" class="form-control" name="dateresponsabilite" value="{{ $employe->dateresponsabilite }}" placeholder="Date nommination responsabilite" >
+                                    </div>
+                                </div>  --}}
                             </div>
                             <button type="submit" class="btn  btn-primary">Submit</button>
                             {!! Form::close() !!}

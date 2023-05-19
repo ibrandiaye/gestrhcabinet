@@ -16,7 +16,7 @@ class UpdateTableEmployeeAddColumnTable extends Migration
         Schema::table('employes', function (Blueprint $table) {
             $table->string('sm');
             $table->string('typecontrat');
-            $table->string('datenomination');
+
         });
     }
 

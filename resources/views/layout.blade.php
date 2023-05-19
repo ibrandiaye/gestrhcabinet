@@ -40,7 +40,7 @@
 
 				<div class="">
 					<div class="main-menu-header">
-						<img class="img-radius" src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="User-Profile-Image">
+						<img class="img-radius" src="{{ asset('img/profil.jpg') }}" alt="User-Profile-Image">
 						<div class="user-details">
 							<div id="more-details">  @if(Auth::user()) {{ Auth::user()->name }} @endif <i class="fa fa-caret-down"></i></div>
 						</div>
@@ -64,16 +64,86 @@
 				</div>
 
 				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-menu-caption">
+					{{--  <li class="nav-item pcoded-menu-caption">
 						<label>Gestion des Stages</label>
-					</li>
-					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Service</span></a>
+					</li>  --}}
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-menu"></i></span><span class="pcoded-mtext">Structure de base
+                        </span></a>
 						<ul class="pcoded-submenu">
-							<li><a href="{{ route('service.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('service.index') }}">Lister</a></li>
+							<li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Service</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('service.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('service.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('fonction.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Contrat</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('contrat.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('contrat.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('fonction.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Categorie</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('categorie.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('categorie.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Employeur</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('employeur.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('employeur.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Famille</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('famille.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('famille.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Mobilite</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('mobilite.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('mobilite.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Conge</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('conge.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('conge.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item pcoded-hasmenu">
+                                <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Hierarchie</span></a>
+                                <ul class="pcoded-submenu">
+                                    <li><a href="{{ route('hierarchie.create') }}">Ajouter</a></li>
+                                    <li><a href="{{ route('hierarchie.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
 						</ul>
 					</li>
+
                     {{--  <li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Demande de stage</span></a>
 						<ul class="pcoded-submenu">
@@ -102,50 +172,9 @@
 							<li><a href="{{ route('document.index') }}">Lister</a></li>
 						</ul>
 					</li>  --}}
+
                     <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('fonction.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Contrat</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('contrat.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('contrat.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">fonction</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('fonction.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('fonction.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Categorie</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('categorie.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('categorie.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Employeur</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('employeur.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('employeur.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Famille</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('famille.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('famille.index') }}">Lister</a></li>
-						</ul>
-					</li>
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Employee</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Fichier du personnel </span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="{{ route('employe.create') }}">Ajouter</a></li>
 							<li><a href="{{ route('employe.index') }}">Lister</a></li>
@@ -163,8 +192,8 @@
 				<div class="m-header">
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="#!" class="b-brand">
-						<!-- ========   change your logo hear   ============ -->
-						<img src="assets/images/logo.png" alt="" class="logo">
+						<!-- ========   change your logo hear   ============
+						<img src="assets/images/logo.png" alt="" class="logo"> -->
 
 					</a>
 					<a href="#!" class="mob-toggler">
@@ -280,6 +309,8 @@
 <script src="{{ asset('assets/js/ripple.js') }}"></script>
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
 <script src="{{ asset('assets/js/menu-setting.min.js') }}"></script>
+<script src="{{ asset('assets/js/moment/moment.js') }}"></script>
+
 
 @yield('js')
 <script>

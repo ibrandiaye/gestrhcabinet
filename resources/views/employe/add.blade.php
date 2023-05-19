@@ -8,11 +8,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Formulaire d'enregistrement employe</h5>
+                            <h5 class="m-b-10">Formulaire Enregistrement Employé</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Enregistrer un employe</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Formulaire Enregistrement Employé</a></li>
                         </ul>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Form Validation</h5>
+                        <h5>Formulaire Enregistrement Employé</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('employe.store') }}" method="POST" enctype="multipart/form-data">
@@ -170,6 +170,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="form-label">Hierarchie</label>
+                                        <select class="form-control" name="hierarchie_id" required>
+                                           <option value="">Veuillez choisir</option>
+                                           @foreach ($hierarchies as $hierarchie)
+                                           <option value="{{ $hierarchie->id }}">{{ $hierarchie->nom }}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                              {{--    <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="form-label">Fonction</label>
                                         <select class="form-control" name="fonction_id" required>
                                            <option value="">Veuillez choisir</option>
@@ -184,7 +195,7 @@
                                         <label class="form-label">DATE DE NOMINATION A LA FONCTION</label>
                                         <input type="date" class="form-control" name="datenomination" value="{{ old('datenomination') }}" placeholder="Date de prise fonction" required>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Employeur</label>
@@ -217,7 +228,18 @@
                                          </select>
                                     </div>
                                 </div>
-
+                               {{--   <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Responsabilité</label>
+                                        <input type="text" class="form-control" name="responsablite" value="{{ old('responsablite') }}" placeholder="titre responsabilte">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Date de nomination à la responsabilité</label>
+                                        <input type="date" class="form-control" name="dateresponsabilite" value="{{ old('dateresponsabilite') }}" placeholder="Date nommination responsabilte" >
+                                    </div>
+                                </div>  --}}
                             </div>
                             <button type="submit" class="btn  btn-primary">Submit</button>
                         </form>

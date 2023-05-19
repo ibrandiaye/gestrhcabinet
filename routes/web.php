@@ -28,11 +28,24 @@ Route::resource('employeur', EmployeurController::class);
 Route::resource('employe', EmployeController::class);
 Route::resource('famille', FamilleController::class);
 Route::resource('fonction', FonctionConroller::class);
+Route::resource('mobilite', MobiliteController::class);
+Route::resource('conge', CongeController::class);
+Route::resource('responsabilite', ResponsabiliteController::class);
+Route::resource('occupe', OccupeController::class);
+Route::resource('hierarchie', HierarchieController::class);
+
+
 Auth::routes();
 
 Route::post('/candidat/search', 'CandidatController@search')->name('candidat.search');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prolongation/candidat/{id}/{candidat}', 'ProlongationController@getCandidatId')->name('prolonger.by.id');
 Route::get('users/export/', 'CandidatController@export')->name('export.candidat');
+Route::get('/responsabilite/by/employe/{id}', 'ResponsabiliteController@getByEmploye')->name('responsabilite.employe');
+Route::get('/poste/by/employe/{id}', 'OccupeController@getByEmploye')->name('poste.employe');
+Route::get('/conge/by/employe/{id}', 'CongeController@getCongeByEmploye')->name('conge.employe');
+Route::get('/create/conge/by/employe/{id}', 'CongeController@createByEmploye')->name('create.conge.employe');
+
+Route::post('/save/document/employe', 'EmployeController@storeDocument')->name('document.save.employe');
 
 Route::get('/home', 'HomeController@index')->name('home');

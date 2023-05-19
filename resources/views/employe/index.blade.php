@@ -92,6 +92,7 @@
                         <table id="simpletable1" class="table table-striped table-bordered nowrap">
                             <thead>
                                 <tr>
+                                    <th>Action</th>
                                     <th>Matricle</th>
                                     <th>N° CNI</th>
                                     <th>PRENOM (S)</th>
@@ -106,8 +107,8 @@
                                     <th>Adresse</th>
                                     <th>Categorie</th>
                                     <th>FAMILLE PROFESSIONNELLE</th>
-                                    <th>Fonction</th>
-                                    <th>DATE DE NOMINATION à la fonction</th>
+                                    {{--  <th>Fonction</th>
+                                    <th>DATE DE NOMINATION à la fonction</th> --}}
                                     <th>Service</th>
                                     <th>DATE DE PRISE DE SERVICE</th>
                                     <th>Ancienneté</th>
@@ -118,12 +119,18 @@
                                     <th>TYPE DE CONTRAT</th>
                                     <th>Employeur</th>
                                     <th>Religion</th>
-                                    <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                @foreach ($employes as $employe)
                                <tr>
+                                <td> <a href="{{ route('employe.show', $employe->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('employe.edit', $employe->id) }}" role="button" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    {!! Form::open(['method' => 'DELETE', 'route'=>['employe.destroy', $employe->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
+                                    <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    {!! Form::close() !!}
+                                 </td>
                                 <td>{{ $employe->matricule }}</td>
                                 <td>{{ $employe->cni }}</td>
                                    <td>{{ $employe->prenom }}</td>
@@ -139,8 +146,8 @@
                                    <td>{{ $employe->adresse }}</td>
                                    <td>{{ $employe->categorie->nom }}</td>
                                    <td>{{ $employe->famille->nom }}</td>
-                                   <td>{{ $employe->fonction->nom }}</td>
-                                   <td>{{ Carbon\Carbon::parse($employe->updated_at)->format('d-m-Y')   }}</td>
+                                   {{--  <td>{{ $employe->fonction->nom }}</td>  --}}
+                                   {{--  <td>{{ Carbon\Carbon::parse($employe->updated_at)->format('d-m-Y')   }}</td>  --}}
                                    <td>{{ $employe->service->nom }}</td>
                                    <td>{{ Carbon\Carbon::parse($employe->datefonction)->format('d-m-Y')   }}</td>
                                    <td>{{ $employe->anciennete }} ans</td>
@@ -151,13 +158,8 @@
                                    <td>{{ $employe->typecontrat }}</td>
                                    <td>{{ $employe->employeur->nom }}</td>
                                    <td>{{ $employe->religion }}</td>
-                                   <td> <a href="{{ route('employe.show', $employe->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('employe.edit', $employe->id) }}" role="button" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    {!! Form::open(['method' => 'DELETE', 'route'=>['employe.destroy', $employe->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
-                                    <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                                    {!! Form::close() !!}
-                                 </tr>
 
+                               </tr>
                                @endforeach
                             </tbody>
                               <tfoot>
@@ -176,8 +178,8 @@
                                     <th>Adresse</th>
                                     <th>Categorie</th>
                                     <th>FAMILLE PROFESSIONNELLE</th>
-                                    <th>Fonction</th>
-                                    <th>DATE DE NOMINATION à la fonction</th>
+                                    {{--  <th>Fonction</th>
+                                    <th>DATE DE NOMINATION à la fonction</th>--}}
                                     <th>Service</th>
                                     <th>DATE DE PRISE DE SERVICE</th>
                                     <th>Ancienneté</th>

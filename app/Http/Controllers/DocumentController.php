@@ -73,7 +73,7 @@ class DocumentController extends Controller
             $candidat = $this->candidatRepository->getCandidatWithRelation($request['candidat_id']);
             $services = $this->serviceRepository->getAll();
             return view('candidat.show',compact('candidat','services'));
-        }else if($request->employe_id){
+        }else if($request['page']=='empl'){
            // $employe = $this->employeRepository->getById($request['employe_id']);
             return redirect()->route('employe.show', ['employe' =>$request['employe_id']]);
         }else{

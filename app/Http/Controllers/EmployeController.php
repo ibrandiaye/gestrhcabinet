@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CategorieRepository;
 use App\Repositories\ContratRepository;
+use App\Repositories\DocumentRepository;
 use App\Repositories\EmployeRepository;
 use App\Repositories\EmployeurRepository;
 use App\Repositories\FamilleRepository;
 use App\Repositories\FonctionRepository;
+use App\Repositories\HierarchieRepository;
+use App\Repositories\OccupeRepository;
+use App\Repositories\ResponsabiliteRepository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,11 +25,15 @@ class EmployeController extends Controller
     protected $familleRepository;
     protected $employeurRepository;
     protected $fonctionRepository;
-
-
+    protected $documentRepository;
+    protected $responsabiliteRepository;
+    protected $occupeRepository;
+    protected $hierarchieRepository;
     public function __construct(EmployeRepository $employeRepository, ServiceRepository $serviceRepository,
     ContratRepository $contratRepository,CategorieRepository $categorieRepository,FamilleRepository $familleRepository,
-    EmployeurRepository $employeurRepository,FonctionRepository $fonctionRepository){
+    EmployeurRepository $employeurRepository,FonctionRepository $fonctionRepository, DocumentRepository $documentRepository,
+    ResponsabiliteRepository $responsabiliteRepository,OccupeRepository $occupeRepository, HierarchieRepository $hierarchieRepository){
+       $this->middleware(['auth']);
         $this->employeRepository =$employeRepository;
         $this->serviceRepository = $serviceRepository;
         $this->contratRepository = $contratRepository;
@@ -33,6 +41,10 @@ class EmployeController extends Controller
         $this->familleRepository = $familleRepository;
         $this->employeurRepository = $employeurRepository;
         $this->fonctionRepository = $fonctionRepository;
+        $this->documentRepository = $documentRepository;
+        $this->responsabiliteRepository = $responsabiliteRepository;
+        $this->occupeRepository = $occupeRepository;
+        $this->hierarchieRepository = $hierarchieRepository;
     }
 
     /**
@@ -83,8 +95,9 @@ class EmployeController extends Controller
         $familles = $this->familleRepository->getAll();
         $employeurs = $this->employeurRepository->getAll();
         $fonctions = $this->fonctionRepository->getAll();
+        $hierarchies = $this->hierarchieRepository->getAll();
         return view('employe.add',compact('services','contrats','categories','employeurs','services',
-    'fonctions','familles'));
+    'fonctions','familles','hierarchies'));
     }
 
     /**
@@ -149,6 +162,7 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
+
        $employe = $this->employeRepository->getById($id);
        $date1=date_create(date('Y-m-d'));
        $date2 =date_create($employe->datefonction);
@@ -157,12 +171,17 @@ class EmployeController extends Controller
        $employe->anciennete = floor($diff);
        $datenaiss = date_create($employe->datenaiss);
        $age  = date_diff($date1,$datenaiss);
+
        $employe->age = floor($age->format('%a')/365);
        $employe->trancheage=$this->trancheAge($employe);
-      $employe->dateretraite = $this->ajouterAnnees($employe->datenaiss,$employe->retraite);
-    $employe->trancheanciennete = $this->trancheAnxiente($employe);
-        $services = $this->serviceRepository->getAll();
-        return view('employe.show',compact('employe','services'));
+       $employe->dateretraite = $this->ajouterAnnees($employe->datenaiss,$employe->retraite);
+       $employe->trancheanciennete = $this->trancheAnxiente($employe);
+       $services = $this->serviceRepository->getAll();
+       $responsabilite = $this->responsabiliteRepository->getLastResponsabilite($id);
+       $occupe = $this->occupeRepository->getLastOccupe($id);
+       $fonctions = $this->fonctionRepository->getAll();
+        return view('employe.show',compact('employe','services','responsabilite','occupe',
+    'fonctions'));
     }
 
     /**
@@ -180,8 +199,9 @@ class EmployeController extends Controller
         $familles = $this->familleRepository->getAll();
         $employeurs = $this->employeurRepository->getAll();
         $fonctions = $this->fonctionRepository->getAll();
+        $hierarchies = $this->hierarchieRepository->getAll();
         return view('employe.edit',compact('employe','services','contrats','categories','employeurs','services',
-        'fonctions','familles'));
+        'fonctions','familles','hierarchies'));
     }
 
     /**
@@ -350,6 +370,27 @@ class EmployeController extends Controller
             else{
                 return "entre50AnsPlus";
             }
+
+    }
+    public function storeDocument(Request $request)
+    {
+      //  dd($request->all());
+        $request->validate([
+            'nom'=> 'required|string',
+            'docs'=> 'required|file|mimes:docx,pdf,doc,xls,xlsx',
+          //  'candidat_id'=> 'required|int'
+
+        ],[
+            'nom'=> 'Nom Obligatoire',
+            'docs'=> 'Document obligatoire',
+          //  'candidat_id'=> 'Le candidat est obligatoire',
+        ]);
+        $document = time().'.'.$request->docs->extension();
+        $request->docs->move('clceorccis/', $document);
+        $request->merge(['fichier'=>$document]);
+        $documents = $this->documentRepository->store($request->all());
+       return redirect()->route('employe.show', ['employe' =>$request['employe_id']]);
+
 
     }
 }
