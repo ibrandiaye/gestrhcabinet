@@ -86,7 +86,12 @@
                                 {{ $employe->sm }}
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <div class="col-sm-6  ">Groupe Sanguin</div>
+                            <div class="col-sm-6 font-weight-bolder">
+                                {{ $employe->groupesanguin }}
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-sm-6  ">Email</div>
                             <div class="col-sm-6 font-weight-bolder">
@@ -97,6 +102,14 @@
                             <div class="col-sm-6  ">Téléphone</div>
                             <div class="col-sm-6 font-weight-bolder">
                                 {{ $employe->tel }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6  ">Nombre D'enfant(s)</div>
+                            <div class="col-sm-6">
+                            @if($nbEnfant > 0)
+                          <strong>  {{ $nbEnfant }} enfant(s)</strong> <a href="{{ route('enfant.employe', $employe->id) }}" role="button" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                            @endif
                             </div>
                         </div>
                         <div class="form-group row">
@@ -111,12 +124,14 @@
                                 {{ $employe->typecontrat }}
                             </div>
                         </div>
-                        <div class="form-group row">
+                      @if( $employe->contrat)
+
+                      <div class="form-group row">
                             <laubel class="col-sm-6  ">TYPE CONTRAT</laubel>
                             <div class="col-sm-6 font-weight-bolder">
                                 {{ $employe->contrat->nom }}
                             </div>
-                        </div>
+                        </div>  @endif
                         <div class="form-group row">
                             <laubel class="col-sm-6  ">DATE DE PRISE DE SERVICE</laubel>
                             <div class="col-sm-6 font-weight-bolder">
@@ -156,6 +171,9 @@
                         </div>
 
                      {{--     @endforeach  --}}
+                     <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#exampleModalLongEnfant">Ajouter Enfant</button>
+                     <button type="button" class="btn  btn-warning" data-toggle="modal" data-target="#exampleModalLongEnfant">Ajouter Enfant</button>
+                     <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#exampleModalLongDocEnfant">Document Enfant</button>
 
                 </div>
                 <div class="card-body border-top pro-det-edit collapse " id="pro-det-edit-2">
@@ -184,29 +202,35 @@
                                 {{ $employe->service->nom }}
                             </div>
                         </div>
+                        @if( $employe->famille)
                         <div class="form-group row">
                             <div class="col-sm-6  ">FAMILLE PROFESSIONNELLE</div>
                             <div class="col-sm-6 font-weight-bolder">
                                 {{ $employe->famille->nom }}
                             </div>
                         </div>
+                        @endif
+
                             <div class="form-group row">
                                 <div class="col-sm-6  ">Catégorie socio-professionnelle</div>
                                 <div class="col-sm-6">
                                     {{ $employe->categorie->nom  }}
                                 </div>
                             </div>
+                            @if($employe->hierarchie)
                             <div class="form-group row">
                                 <div class="col-sm-6  ">Hiérarchie</div>
                                 <div class="col-sm-6">
                                     {{ $employe->hierarchie->nom  }}
                                 </div>
                             </div>
+                            @endif
+
                             @if(!empty($occupe->fonction))
                             <div class="form-group row">
                                 <div class="col-sm-6  ">Fonction</div>
                                 <div class="col-sm-6">
-                                    {{ $occupe->fonction->nom }} <a href="{{ route('poste.employe', $employe->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    {{ $occupe->fonction->nom }} <a href="{{ route('poste.employe', $employe->id) }}" role="button" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                 </div>
                             </div>
 
@@ -221,7 +245,9 @@
                             <div class="form-group row">
                                 <div class="col-sm-6  ">Responsabilite</div>
                                 <div class="col-sm-6">
-                                    {{ $responsabilite->nom }} <a href="{{ route('responsabilite.employe', $employe->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                @if($responsabilite)
+                                {{ $responsabilite->nom }} <a href="{{ route('responsabilite.employe', $employe->id) }}" role="button" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
+                                @endif
                                 </div>
                             </div>
 
@@ -233,13 +259,15 @@
                     <button type="button" class="btn  btn-warning" data-toggle="modal" data-target="#exampleModalLongEmp">Ajouter Fonction</button>
                     <a  href="{{ route('create.conge.employe', ['id'=>$employe->id]) }}" class="btn  btn-danger">Ajouté Congé</a>
                     <a  href="{{ route('conge.employe', ['id'=>$employe->id]) }}" class="btn  btn-info">Voir congé</a>
-
+                    <button type="button" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalLongEmputation">Ajouter Imputation</button>
+                    <a  href="{{ route('imputation.employe', ['id'=>$employe->id]) }}" class="btn  btn-primary">Voir Imputation</a>
                 </div>
             </div>
 
-            @if(sizeof($employe->documents) > 0)
+
             <div class="col-sm-6">
                 <div class="card">
+                    @if(sizeof($employe->documents) > 0)
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Document</h5>
                         <button type="button" class="btn btn-primary btn-sm rounded m-0 float-right" data-toggle="collapse" data-target=".pro-dont-edit" aria-expanded="false" aria-controls="pro-dont-edit-1 pro-dont-edit-2">
@@ -256,19 +284,21 @@
                                 </div>
                             </div>
                             @endforeach
+                            @endif
                             <div class="form-group">
                                 <button type="button" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalLongDoc">Ajouter Document</button>
 
                       </div>
 
                     </div>
+
                     <div class="card-body border-top pro-dont-edit collapse " id="pro-dont-edit-2">
 
                     </div>
                 </div>
             </div>
 
-            @endif
+
 
 
 
@@ -403,6 +433,7 @@
                                     <input type="date" class="form-control"  name="debut"  required>
                                 </div>
                             </div>
+
                             <input type="hidden" value="{{ $employe->id }}" name="employe_id">
                         </div>
 
@@ -415,6 +446,197 @@
         </div>
         </div>
 
+        <div id="exampleModalLongEmputation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Ajouter Imputation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form action="{{ route('imputation.store') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                            @csrf
+                            @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Type</label>
+                                        <input type="text" class="form-control"  name="type"  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Taux</label>
+                                        <input type="text" class="form-control"  name="taux"  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">destination</label>
+                                        <input type="text" class="form-control"  name="destination"  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">beneficiaire</label>
+                                        <input type="text" class="form-control"  name="beneficiaire"  required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Document</div>
+                                        <input type="file" class="form-control"  name="docs"  required>
+                                    </div>
+                                <input type="hidden" value="{{ $employe->id }}" name="employe_id">
+                            </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn  btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn  btn-primary">Enregistrer</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+
+            <div id="exampleModalLongEnfant" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Ajouter Enfant</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <form action="{{ route('enfant.store') }}" method="POST" >
+                        <div class="modal-body">
+
+                                @csrf
+                                @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Prenom</label>
+                                            <input type="text" class="form-control"  name="prenom"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Nom</label>
+                                            <input type="text" class="form-control"  name="nom"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Date Naissance</label>
+                                            <input type="date" class="form-control"  name="datenaiss"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Lieu Naissance</label>
+                                            <input type="text" class="form-control"  name="lieunaiss"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Sexe</label>
+                                            <select class="form-control" name="sexe" required>
+                                                <option value="" >Selectionner</option>
+                                                <option value="homme">Homme</option>
+                                               <option value="femme">Femme</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Scolarite</label>
+                                            <select class="form-control" name="scolarite" required>
+                                                <option value="" >Selectionner</option>
+                                                <option value="oui">Oui</option>
+                                               <option value="non">Non</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" value="{{ $employe->id }}" name="employe_id">
+                                </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn  btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn  btn-primary">Enregistrer</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+
+                <div id="exampleModalLongDocEnfant" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter Document Endat Enfant</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <form action="{{ route('docenfant.store') }}" method="POST" enctype="multipart/form-data">
+                            <div class="modal-body">http://127.0.0.1:8000/employe/test/3#profile
+
+                                    @csrf
+                                    @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Enfant</label>
+                                                <select class="form-control" name="enfant_id" required>
+                                                    <option value="" >Selectionner</option>
+                                                    @foreach ($enfants as $enfant )
+                                                    <option value="{{ $enfant->id }}">{{ $enfant->prenom }} {{ $enfant->nom }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Nom Document</label>
+                                                <input type="text" class="form-control"  name="nom"  required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Document</div>
+                                                <input type="file" class="form-control"  name="docs"  required>
+                                            </div>
+                                    </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn  btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn  btn-primary">Enregistrer</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
 </section>
 
 @endsection

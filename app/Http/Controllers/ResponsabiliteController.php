@@ -110,7 +110,8 @@ class ResponsabiliteController extends Controller
         return redirect('responsabilite');
     }
     public function getByEmploye($id){
+        $employe = $this->employeRepository->getById($id);
         $responsabilites = $this->responsabiliteRepository->getByEmploye($id);
-        return view("responsabilite.index",compact("responsabilites"));
+        return view("responsabilite.index",compact("responsabilites","employe"));
     }
 }

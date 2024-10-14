@@ -10,7 +10,7 @@ class Employe extends Model
         'prenom', 'nom', 'datenaiss','lieunaiss','email','sexe','adresse','service_id',
         'tel','cni','matricule','adresse','religion','retraite','sm','typecontrat',
         'datefonction','religion','famille_id','categorie_id','fonction_id','employeur_id','contrat_id',
-         'hierarchie_id'];
+         'hierarchie_id','groupesanguin'];
     public function service(){
         return $this->belongsTo(Service::class);
     }
@@ -38,6 +38,9 @@ class Employe extends Model
     }
     public function occupes(){
         return $this->hasMany(Occupe::class);
+    }
+    public function enfants(){
+        return $this->hasMany(Enfant::class);
     }
     public function hierarchie(){
         return $this->belongsTo(Hierarchie::class);

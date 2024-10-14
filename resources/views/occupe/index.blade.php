@@ -11,11 +11,11 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Liste des Fonctions occupes</h5>
+                        <h5 class="m-b-10">Employé:  {{ $employe->prenom }} {{ $employe->nom }}</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('occupe.index') }}">Les Fonctions occupes</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('occupe.index') }}">Les occupes</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,10 +36,9 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Debut</th>
-                                    <th>Fin</th>
-                                    <th>Employe</th>
-                                    <th>Fonction</th>
+                                    <th> Nom occupe</th>
+                                    <th>Fichier</th>
+                                    <th>Candidat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,13 +47,10 @@
                                @foreach ($occupes as $occupe)
                                <tr>
                                 <td>{{ $occupe->id }}</td>
-                                <td>{{  Carbon\Carbon::parse( $occupe->debut)->format('d-m-Y')  }}</td>
-                                <td>@if($occupe->fin)
-                                    {{ Carbon\Carbon::parse($occupe->fin)->format('d-m-Y')  }}
-                                @endif</td>
-                                <td> {{ $occupe->employe->prenom }} {{ $occupe->employe->nom }}</td>
-                                <td> {{ $occupe->fonction->nom }}</td>
-                                <td>
+                                <td> {{ $occupe->nom }}</td>
+                                <td> <a href="{{ asset('clceorccis/'.$occupe->fichier) }}">Occupe</a></td>
+                                <td>{{ $occupe->candidats }}</td>
+                                <td> <a href="{{ route('occupe.show', $occupe->id) }}" role="button" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                  <a href="{{ route('occupe.edit', $occupe->id) }}" role="button" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                  {!! Form::open(['method' => 'DELETE', 'route'=>['occupe.destroy', $occupe->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
                                   <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -66,10 +62,9 @@
                             <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Debut</th>
-                                    <th>Fin</th>
-                                    <th>Employe</th>
-                                    <th>Fonction</th>
+                                    <th> Nom occupe</th>
+                                    <th>Fichier</th>
+                                    <th>Candidat</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

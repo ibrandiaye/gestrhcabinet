@@ -125,6 +125,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="form-label">Groupe Sanguin</label>
+                                        <select class="form-control" name="groupesanguin" >
+                                            <option value="" >Selectionner</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                           <option value="A+">A+</option>
+                                           <option value="A-">A-</option>
+                                           <option value="B+">B+</option>
+                                           <option value="B-">B-</option>
+                                           <option value="AB+">AB+</option>
+                                           <option value="AB-">AB-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="form-label">Matricule</label>
                                         <input type="text" class="form-control" name="matricule" value="{{ old('datedepot') }}" required>
                                     </div>
@@ -179,7 +195,7 @@
                                         </select>
                                     </div>
                                 </div>
-                              {{--    <div class="col-md-6">
+                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Fonction</label>
                                         <select class="form-control" name="fonction_id" required>
@@ -190,7 +206,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                 {{--    <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">DATE DE NOMINATION A LA FONCTION</label>
                                         <input type="date" class="form-control" name="datenomination" value="{{ old('datenomination') }}" placeholder="Date de prise fonction" required>

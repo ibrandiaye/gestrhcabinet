@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\EmployeImport;
 use App\Repositories\CategorieRepository;
 use App\Repositories\ContratRepository;
 use App\Repositories\DocumentRepository;
 use App\Repositories\EmployeRepository;
 use App\Repositories\EmployeurRepository;
+use App\Repositories\EnfantRepository;
 use App\Repositories\FamilleRepository;
 use App\Repositories\FonctionRepository;
 use App\Repositories\HierarchieRepository;
@@ -29,10 +31,12 @@ class EmployeController extends Controller
     protected $responsabiliteRepository;
     protected $occupeRepository;
     protected $hierarchieRepository;
+    protected $enfantRepository;
     public function __construct(EmployeRepository $employeRepository, ServiceRepository $serviceRepository,
     ContratRepository $contratRepository,CategorieRepository $categorieRepository,FamilleRepository $familleRepository,
     EmployeurRepository $employeurRepository,FonctionRepository $fonctionRepository, DocumentRepository $documentRepository,
-    ResponsabiliteRepository $responsabiliteRepository,OccupeRepository $occupeRepository, HierarchieRepository $hierarchieRepository){
+    ResponsabiliteRepository $responsabiliteRepository,OccupeRepository $occupeRepository, HierarchieRepository $hierarchieRepository,
+    EnfantRepository $enfantRepository){
        $this->middleware(['auth']);
         $this->employeRepository =$employeRepository;
         $this->serviceRepository = $serviceRepository;
@@ -45,6 +49,7 @@ class EmployeController extends Controller
         $this->responsabiliteRepository = $responsabiliteRepository;
         $this->occupeRepository = $occupeRepository;
         $this->hierarchieRepository = $hierarchieRepository;
+        $this->enfantRepository = $enfantRepository;
     }
 
     /**
@@ -96,8 +101,9 @@ class EmployeController extends Controller
         $employeurs = $this->employeurRepository->getAll();
         $fonctions = $this->fonctionRepository->getAll();
         $hierarchies = $this->hierarchieRepository->getAll();
+        $enfants = $this->enfantRepository->getAll();
         return view('employe.add',compact('services','contrats','categories','employeurs','services',
-    'fonctions','familles','hierarchies'));
+    'fonctions','familles','hierarchies','enfants'));
     }
 
     /**
@@ -180,8 +186,11 @@ class EmployeController extends Controller
        $responsabilite = $this->responsabiliteRepository->getLastResponsabilite($id);
        $occupe = $this->occupeRepository->getLastOccupe($id);
        $fonctions = $this->fonctionRepository->getAll();
-        return view('employe.show',compact('employe','services','responsabilite','occupe',
-    'fonctions'));
+       $enfants = $this->enfantRepository->getEnfantByEmploye($id);
+       $nbEnfant = sizeof($enfants);
+    //   dd($enfants);
+        return view('employe.show1',compact('employe','services','responsabilite','occupe',
+    'fonctions','enfants','nbEnfant'));
     }
 
     /**
@@ -391,6 +400,46 @@ class EmployeController extends Controller
         $documents = $this->documentRepository->store($request->all());
        return redirect()->route('employe.show', ['employe' =>$request['employe_id']]);
 
+
+    }
+    public function importExcel(Request $request){
+        $file = $request->file('doc');
+
+        try {
+            Excel::import(new EmployeImport, $file);
+
+            // Importation réussie, effectuez les actions nécessaires (enregistrement en base de données, etc.)
+
+            return redirect()->back()->with('success', 'Importation réussie.');
+        } catch (\Exception $e) {
+            // Erreur lors de l'importation, gérez l'exception selon vos besoins
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'importation du fichier.'.$e->getMessage());
+        }
+    }
+
+    public function test($id){
+        $employe = $this->employeRepository->getById($id);
+        $date1=date_create(date('Y-m-d'));
+        $date2 =date_create($employe->datefonction);
+        $dif=date_diff($date1,$date2);
+        $diff = $dif->format('%a')/365;
+        $employe->anciennete = floor($diff);
+        $datenaiss = date_create($employe->datenaiss);
+        $age  = date_diff($date1,$datenaiss);
+
+        $employe->age = floor($age->format('%a')/365);
+        $employe->trancheage=$this->trancheAge($employe);
+        $employe->dateretraite = $this->ajouterAnnees($employe->datenaiss,$employe->retraite);
+        $employe->trancheanciennete = $this->trancheAnxiente($employe);
+        $services = $this->serviceRepository->getAll();
+        $responsabilite = $this->responsabiliteRepository->getLastResponsabilite($id);
+        $occupe = $this->occupeRepository->getLastOccupe($id);
+        $fonctions = $this->fonctionRepository->getAll();
+        $enfants = $this->enfantRepository->getEnfantByEmploye($id);
+        $nbEnfant = sizeof($enfants);
+     //   dd($enfants);
+         return view('employe.show1',compact('employe','services','responsabilite','occupe',
+     'fonctions','enfants','nbEnfant'));
 
     }
 }

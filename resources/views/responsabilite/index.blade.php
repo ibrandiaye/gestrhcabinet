@@ -28,7 +28,8 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>responsabilites</h5>
+           <button type="button" class="btn  btn-primary" data-toggle="modal" data-target="#exampleModalLongRes">Ajouter Responsabilite</button>
+
                 </div>
                 <div class="card-body">
                     <div class="dt-responsive table-responsive">
@@ -80,6 +81,50 @@
         </div>
     </div>
 </div>
+<div id="exampleModalLongRes" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter Responsabilite</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{ route('responsabilite.store') }}" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+
+                    @csrf
+                    @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Nom </label>
+                    <input type="text" class="form-control" value="{{ old('nom') }}" name="nom" placeholder="Nom document" required>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Date Debut</label>
+                    <input type="date" class="form-control"  name="debut"  required>
+                </div>
+            </div>
+                        <input type="hidden" value="{{ $employe->id }}" name="employe_id">
+                    </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn  btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn  btn-primary">Enregistrer</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </section>
 @endsection
 @section('js')

@@ -9,4 +9,7 @@ class CandidatExport implements FromCollection
      return Candidat::with(['autorisations','autorisations.prolongations','documents'])
     ->get();
   }
+  public function chunkSize(): int{
+    return 10;
+}
 }

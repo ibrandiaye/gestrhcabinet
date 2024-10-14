@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +32,9 @@ Route::resource('conge', CongeController::class);
 Route::resource('responsabilite', ResponsabiliteController::class);
 Route::resource('occupe', OccupeController::class);
 Route::resource('hierarchie', HierarchieController::class);
-
+Route::resource('imputation', ImputationController::class);
+Route::resource('enfant', EnfantController::class);
+Route::resource('docenfant', DocenfantController::class);
 
 Auth::routes();
 
@@ -45,7 +46,12 @@ Route::get('/responsabilite/by/employe/{id}', 'ResponsabiliteController@getByEmp
 Route::get('/poste/by/employe/{id}', 'OccupeController@getByEmploye')->name('poste.employe');
 Route::get('/conge/by/employe/{id}', 'CongeController@getCongeByEmploye')->name('conge.employe');
 Route::get('/create/conge/by/employe/{id}', 'CongeController@createByEmploye')->name('create.conge.employe');
+Route::get('/enfant/employei/{id}', 'EnfantController@getEnfantByEmploye')->name('enfant.employe');
+Route::get('/imputation/employe/{id}', 'ImputationController@getImputationByEmploye')->name('imputation.employe');
 
 Route::post('/save/document/employe', 'EmployeController@storeDocument')->name('document.save.employe');
+Route::post('/import/excel', 'EmployeController@importExcel')->name('import.excel');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/employe/test/{id}', 'EmployeController@test')->name('employe.test');
+

@@ -114,7 +114,8 @@ class OccupeController extends Controller
         return redirect('occupe');
     }
     public function getByEmploye($id){
+        $employe = $this->employeRepository->getById($id);
         $occupes = $this->occupeRepository->getByEmploye($id);
-        return view("occupe.index",compact("occupes"));
+        return view("occupe.index",compact("occupes","employe"));
     }
 }

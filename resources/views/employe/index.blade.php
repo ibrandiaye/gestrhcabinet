@@ -33,6 +33,20 @@
                     <h5>Employes</h5>
                 </div>
                 <div class="card-body">
+                    @if (\Session::has('error'))
+                    <div class="alert alert-error">
+                        <ul>
+                            <li>{!! \Session::get('error') !!}</li>
+                        </ul>
+                    </div>
+                @endif
+                @if (\Session::has('success'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
+    @endif
                     {{--  <a href="{{ route('export.employe') }}" class="btn btn-primary"> Exporter</a>  --}}
                     {{--  <form action="{{ route('employe.search') }}" method="POST" >
                         @csrf
@@ -88,6 +102,8 @@
                         <br><br>
                         </div>
                     </form>  --}}
+                    <button type="button" class="btn  btn-info" data-toggle="modal" data-target="#exampleModalLongEnfant">Importer</button>
+
                     <div class="dt-responsive table-responsive">
                         <table id="simpletable1" class="table table-striped table-bordered nowrap">
                             <thead>
@@ -145,7 +161,9 @@
                                    <td>{{ $employe->email }}</td>
                                    <td>{{ $employe->adresse }}</td>
                                    <td>{{ $employe->categorie->nom }}</td>
-                                   <td>{{ $employe->famille->nom }}</td>
+                                   <td>@if( $employe->famille)
+                                    {{ $employe->famille->nom }}
+                                   @endif</td>
                                    {{--  <td>{{ $employe->fonction->nom }}</td>  --}}
                                    {{--  <td>{{ Carbon\Carbon::parse($employe->updated_at)->format('d-m-Y')   }}</td>  --}}
                                    <td>{{ $employe->service->nom }}</td>
@@ -154,7 +172,9 @@
                                    <td>{{ $employe->trancheanciennete }} </td>
                                    <td>{{ $employe->retraite }} ans</td>
                                    <td>{{ Carbon\Carbon::parse($employe->dateretraite)->format('d-m-Y')   }} </td>
-                                   <td>{{ $employe->contrat->nom }} ans</td>
+                                   <td>@if( $employe->contrat)
+                                    {{ $employe->contrat->nom }} ans
+                                   @endif</td>
                                    <td>{{ $employe->typecontrat }}</td>
                                    <td>{{ $employe->employeur->nom }}</td>
                                    <td>{{ $employe->religion }}</td>
@@ -200,6 +220,42 @@
         </div>
     </div>
 </div>
+
+<div id="exampleModalLongEnfant" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter Enfant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+
+                    @csrf
+                    @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Document</div>
+                                <input type="file" class="form-control"  name="doc"  required>
+                            </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn  btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn  btn-primary">Enregistrer</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
 </section>
 @endsection
 @section('js')

@@ -64,9 +64,9 @@
 				</div>
 
 				<ul class="nav pcoded-inner-navbar ">
-					{{--  <li class="nav-item pcoded-menu-caption">
-						<label>Gestion des Stages</label>
-					</li>  --}}
+					 <li class="nav-item pcoded-menu-caption">
+						<label>Gestion du Personnel</label>
+					</li>
                     <li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-menu"></i></span><span class="pcoded-mtext">Structure de base
                         </span></a>
@@ -144,7 +144,19 @@
 						</ul>
 					</li>
 
-                    {{--  <li class="nav-item pcoded-hasmenu">
+                    {{--   --}}
+
+                    <li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Fichier du personnel </span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="{{ route('employe.create') }}">Ajouter</a></li>
+							<li><a href="{{ route('employe.index') }}">Lister</a></li>
+						</ul>
+					</li>
+                    <li class="nav-item pcoded-menu-caption">
+						<label>Gestion des stages</label>
+					</li>
+                    <li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Demande de stage</span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="{{ route('candidat.create') }}">Ajouter</a></li>
@@ -170,14 +182,6 @@
 						<ul class="pcoded-submenu">
 							<li><a href="{{ route('document.create') }}">Ajouter</a></li>
 							<li><a href="{{ route('document.index') }}">Lister</a></li>
-						</ul>
-					</li>  --}}
-
-                    <li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Fichier du personnel </span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="{{ route('employe.create') }}">Ajouter</a></li>
-							<li><a href="{{ route('employe.index') }}">Lister</a></li>
 						</ul>
 					</li>
 				</ul>

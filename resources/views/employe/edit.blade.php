@@ -126,7 +126,22 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Groupe Sanguin</label>
+                                        <select class="form-control" name="groupesanguin" >
+                                            <option value="" >Selectionner</option>
+                                            <option value="O+" {{ $employe->groupesanguin=='O+' ? 'selected' : '' }}>O+</option>
+                                            <option value="O-" {{ $employe->groupesanguin=='O-' ? 'selected' : '' }}>O-</option>
+                                           <option value="A+" {{ $employe->groupesanguin=='A+' ? 'selected' : '' }}>A+</option>
+                                           <option value="A-" {{ $employe->groupesanguin=='A-' ? 'selected' : '' }}>A-</option>
+                                           <option value="B+" {{ $employe->groupesanguin=='B+' ? 'selected' : '' }}>B+</option>
+                                           <option value="B-" {{ $employe->groupesanguin=='B-' ? 'selected' : '' }}>B-</option>
+                                           <option value="AB+" {{ $employe->groupesanguin=='AB+' ? 'selected' : '' }}>AB+</option>
+                                           <option value="AB-" {{ $employe->groupesanguin=='AB-' ? 'selected' : '' }}>AB-</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Matricule</label>
